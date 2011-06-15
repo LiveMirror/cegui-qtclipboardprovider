@@ -61,10 +61,10 @@ void QtClipboardProvider::sendToClipboard(const String& mimeType, void* buffer, 
     {
         // Qt works with utf16 nativelly, we want to work with utf8 (because Kulik chose so!)
         // this is why this is a special case
-        QMimeData mimeData;
-        mimeData.setText(QString::fromUtf8(static_cast<char*>(buffer), size));
+        QMimeData* mimeData = new QMimeData();
+        mimeData->setText(QString::fromUtf8(static_cast<char*>(buffer), size));
     
-        QApplication::clipboard()->setMimeData(&mimeData);
+        QApplication::clipboard()->setMimeData(mimeData);
     }
 }
 
